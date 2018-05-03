@@ -1,0 +1,174 @@
+:root {
+  --blue: #007bff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+
+body {
+  background-color: white;
+  font-family: Helvetica;
+}
+
+html,
+body,
+#player {
+  height: 100%;
+}
+
+audio {
+  display: none;
+}
+
+/* Media Queries */
+
+@media only screen and (min-width: 420px) and (max-width: 768px) {
+  body #player {
+    display: flex;
+  }
+  body #player,
+  body .panel,
+  body .playlist {
+    width: 100%;
+  }
+  body ul.playlist {
+    padding-bottom: 0;
+    border-left: 1px solid #046ad8;
+  }
+}
+
+/* SVG */
+
+svg polygon {
+  stroke-linejoin: round;
+  fill:transparent;
+  stroke:white;
+  stroke-width:5;
+}
+
+/* Theme */
+
+#player {
+  background-color: whitesmoke;
+  width: 300px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 5px #c3c3c3;
+  position: fixed;
+}
+
+.panel {
+  text-align: center;
+  background-color: var(--blue);
+  color: white;
+  overflow: hidden;
+  position: relative;
+}
+
+h1 {
+  font-size: 1.5rem;
+}
+
+.control {
+  padding: 3.5rem;
+}
+
+.control button {
+  color: white;
+  background-color: transparent;
+  border: 0;
+  display: inline-block;
+}
+
+.control button:disabled,
+.control button[disabled] {
+  color: #c0bfbf;
+  opacity: .5;
+}
+
+button:focus {
+  outline: none;
+}
+
+.information > div {
+  margin-bottom: 20px;
+}
+
+ul.playlist {
+  height: 100%;
+  overflow-y: scroll;
+  padding-bottom: 285px;
+}
+
+ul.playlist li:first-child {
+  border-top: 0;
+}
+
+ul.playlist li:last-child {
+  border-bottom: 0; 
+}
+
+ul.playlist li {
+  padding: 20px 10px;
+  border-bottom: 1px solid rgba(203, 203, 203, .55);
+  border-top: 1px solid white;
+}
+
+ul.playlist li.active {
+  background-color: var(--blue);
+  color: white;
+  border-top: 0;
+}
+
+ul.playlist li span.id {
+  background-color: var(--blue);
+  color: white;
+  width: 28px;
+  display: inline-block;
+  padding: .25em .4em;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .25rem;
+  margin-right: 5px;
+}
+
+ul.playlist li.active span.id {
+  color: var(--blue);
+  background-color: white; 
+}
+
+ul.playlist li.footer {
+  text-align: center;
+}
+
+#wave {
+  position: absolute;
+  bottom: 0;
+  pointer-events: none;
+  transition: all 500ms ease;
+}
+
+.waving {
+  animation: waving 2s infinite alternate;
+}
+
+#wave.not-waving {
+  bottom: -100px;
+}
+
+@keyframes waving {
+  0% {
+    transform: translateX(-300px);
+  }
+  100% {
+    transform: translateX(calc(-100% + 300px));
+  }
+}

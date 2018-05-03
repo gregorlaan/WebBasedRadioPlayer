@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Estonian Web Based Radio Player</title>
+    <link rel="stylesheet" href="style.min.css">
+</head>
+
+<body>
+
+    <div id="player">
+
+        <div class="panel">
+            <div class="control">
+                <button @click="playOrPause()" :disabled="!currentChannelName">
+                    <svg v-if="playState" height="50" width="50" viewBox="-8 -2 54 54">
+                        <polygon points="1,1 15,1 15,49 1,49" />
+                        <polygon points="23,1 37,1 37,49 23,49" />
+                    </svg>
+                    <svg v-else height="50" width="50" viewBox="-9 -2 54 54">
+                        <polygon points="1,1 35,25 1,49" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="information">
+                <div>
+                    <h1>{{ currentChannelName || 'Select a radio channel' }}</h1>
+                </div>
+
+                <div>
+                    <input class="volume" @input="volume()" v-model="currentVolume" type="range" name="currentVolume" id="currentVolume" value="50"
+                        min="0" max="100">
+                </div>
+
+                <div>{{ currentTime || '00:00:00' }}</div>
+            </div>
+
+            <svg id="wave" v-bind:class="{'waving': playState, 'not-waving': !playState}" width="1600" preserveAspectRatio="xMidYMid meet">
+                <path fill="rgba(255, 255, 255, .1" d="M.005 121C311 121 409.898-.25 811 0c400 0 500 121 789 121v77H0s.005-48 .005-77z" />
+            </svg>
+
+        </div>
+
+        <ul class="playlist">
+            <li v-bind:class="{active:item.name == activeStation}" @click="selectStation(item), activeStation = item.name" track-by="index"
+                v-for="(item, index) in playList">
+                <span class="id">{{ index + 1 }}</span>
+                <span class="name">{{ item.name }}</span>
+            </li>
+            <li class="footer">Copyright © 2018 Gregor Laan</li>
+        </ul>
+
+        <audio @pause="playState = false" @play="playState = true" @error="playerError" @timeupdate="timeStamp()" ref="audio">
+            <source v-bind:src="currentChannelUrl" type="audio/mpeg"> Your browser does not support the audio element.
+        </audio>
+        
+    </div>
+
+    <script src="vue.min.js"></script>
+    <script src="app.min.js"></script>
+
+</body>
+
+</html>
