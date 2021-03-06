@@ -55,7 +55,7 @@
         </ul>
 
         <audio @pause="playState = false" @play="playState = true" @error="playerError" @timeupdate="timeStamp()" ref="audio">
-            <source v-bind:src="currentChannelUrl" type="audio/mpeg"> Your browser does not support the audio element.
+            Your browser does not support the audio element.
         </audio>
         
     </div>

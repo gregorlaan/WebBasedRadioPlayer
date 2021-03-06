@@ -52,6 +52,15 @@ var app = new Vue({
     },
     play: function () {
       console.log('play');
+      var sources = this.$refs.audio.getElementsByTagName('source');
+      if (sources.length === 0) {
+        var source = document.createElement('source');
+        source.setAttribute('type', 'audio/mpeg');
+        this.$refs.audio.appendChild(source);
+      }
+      var source = this.$refs.audio.getElementsByTagName('source')[0];
+      source.setAttribute('src', this.currentChannelUrl);
+      // console.log(source);
       this.$refs.audio.play();
     },
     pause: function () {
